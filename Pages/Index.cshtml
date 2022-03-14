@@ -2,9 +2,31 @@
 @model IndexModel
 @{
     ViewData["Title"] = "Home page";
+    if (Model.Name == null)
+    {
+        Model.Name = "User";
+    }
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div>
+    <h1 class="display-4">Welcome @Model.Name</h1>
+    <form method="post">
+        <div class="col-auto">
+            <label asp-for="FizzBuzz.Number"></label>
+            <input asp-for="FizzBuzz.Number" /><br />
+            <button type="submit">Zatwierdź</button>
+        </div>
+        @{
+            if (!ModelState.IsValid)
+            {
+                <span asp-validation-for="FizzBuzz.Number" class="alert alert-danger" style="display: block;"></span>
+            }
+            else
+            {
+                <div class="alert alert-@ViewData["MessageClass"]">
+                    @ViewData["Message"]
+                </div>
+            }
+        }
+    </form>
 </div>
