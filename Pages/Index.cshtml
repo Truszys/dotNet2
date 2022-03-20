@@ -11,11 +11,9 @@
 <div>
     <h1 class="display-4">Welcome @Model.Name</h1>
     <form method="post">
-        <div class="col-auto">
-            <label asp-for="FizzBuzz.Number"></label>
-            <input asp-for="FizzBuzz.Number" /><br />
-            <button type="submit">Zatwierdź</button>
-        </div>
+        <label asp-for="FizzBuzz.Number"></label>
+        <input asp-for="FizzBuzz.Number" />
+        <button type="submit">Zatwierdź</button>
         @{
             if (!ModelState.IsValid)
             {
