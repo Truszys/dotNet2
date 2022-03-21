@@ -1,0 +1,15 @@
+﻿@page
+@model dotNet2.Pages.SavedInSessionModel
+@{
+    ViewData["Title"] = "Data in session";
+}
+<p>Dane w zapisane w sesji</p>
+@if (Model.List != null)
+{
+    <ul>
+        @foreach(var FizzBuzz in Model.List)
+        {
+            <li>@FizzBuzz.Year, @FizzBuzz.Name - rok @if( FizzBuzz.IsLeap() ){ @("przystępny"); } else { @("zwykły"); }</li>
+        }
+    </ul>
+}

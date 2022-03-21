@@ -30,7 +30,7 @@ button:hover {
     background-color: black;
 }
 
-form > * {
+form label, form button {
     display: block;
     margin: 5px 0;
 }
