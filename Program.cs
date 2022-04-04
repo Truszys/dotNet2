@@ -1,7 +1,11 @@
+using dotNet2.Data;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+builder.Services.AddDbContext<FizzBuzzContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("EFDemoDB")));
 builder.Services.AddSession(options =>
 {
     options.IdleTimeout = TimeSpan.FromMinutes(5);

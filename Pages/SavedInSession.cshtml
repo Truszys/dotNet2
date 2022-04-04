@@ -9,7 +9,7 @@
     <ul>
         @foreach(var FizzBuzz in Model.List)
         {
-            <li>@FizzBuzz.Year, @FizzBuzz.Name - rok @if( FizzBuzz.IsLeap() ){ @("przystępny"); } else { @("zwykły"); }</li>
+            <li>@FizzBuzz.Year, @FizzBuzz.FirstName @if( FizzBuzz.LastName != null ){@FizzBuzz.LastName} - rok @if( FizzBuzz.IsLeap() ){ @("przystępny"); } else { @("zwykły"); }</li>
         }
     </ul>
 }

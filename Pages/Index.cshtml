@@ -14,9 +14,12 @@
         <label asp-for="FizzBuzz.Year"></label>
         <input asp-for="FizzBuzz.Year" />
         <span asp-validation-for="FizzBuzz.Year" class="text-danger" style="font-weight: 700;"></span>
-        <label asp-for="FizzBuzz.Name"></label>
-        <input asp-for="FizzBuzz.Name" />
-        <span asp-validation-for="FizzBuzz.Name" class="text-danger" style="font-weight: 700;"></span>
+        <label asp-for="FizzBuzz.FirstName"></label>
+        <input asp-for="FizzBuzz.FirstName" />
+        <span asp-validation-for="FizzBuzz.FirstName" class="text-danger" style="font-weight: 700;"></span>
+        <label asp-for="FizzBuzz.LastName"></label>
+        <input asp-for="FizzBuzz.LastName" />
+        <span asp-validation-for="FizzBuzz.LastName" class="text-danger" style="font-weight: 700;"></span>
         <button type="submit">Zatwierdź</button>
         @{
             if (ModelState.IsValid && Model.Message != "")

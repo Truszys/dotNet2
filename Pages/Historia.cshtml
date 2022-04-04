@@ -1,0 +1,46 @@
+﻿@page
+@model dotNet2.Pages.HistoriaModel
+@{
+    ViewData["Title"] = "Ostatnio szukane";
+}
+<h1>Ostatnio szukane</h1>
+@if (Model.FizzBuzzData == null || Model.FizzBuzzData.Count == 0)
+{
+    <div class="alert alert-danger">Brak dodanych danych</div>
+}
+else
+{
+    <table class="fizzbuzz-db-data">
+        <tbody>
+            <tr>
+                <th><label asp-for="FizzBuzz.Year"></label></th>
+                <th><label asp-for="FizzBuzz.FirstName"></label></th>
+                <th><label asp-for="FizzBuzz.LastName"></label></th>
+                <th><label asp-for="FizzBuzz.Date"></label></th>
+                <th><label asp-for="FizzBuzz.Result"></label></th>
+                <th><label>Usuń</label></th>
+            </tr>
+            @foreach (var item in Model.FizzBuzzData)
+            {
+                <tr>
+                    <td>@item.Year</td>
+                    <td>@item.FirstName</td>
+                    <td>@if (@item.LastName != null)
+                        {
+                            @item.LastName
+                        } else {
+                            @("-")
+                        }</td>
+                    <td>@item.Date</td>
+                    <td>@item.Result</td>
+                    <td>
+                        <form method="post">
+                            <input type="hidden" name="deleteId" value="@item.Id" />
+                            <button type="submit" value="Delete" class="material-icons delete-btn">close</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
