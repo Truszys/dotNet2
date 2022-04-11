@@ -17,5 +17,7 @@ namespace dotNet2.ViewModels.FizzBuzz
 
         [Display(Name = "Wynik")]
         public string? Result { get; set; }
+
+        public string? UId { get; set; }
     }
 }

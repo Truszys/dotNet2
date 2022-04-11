@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using dotNet2.Data;
 
@@ -11,9 +12,10 @@ using dotNet2.Data;
 namespace dotNet2.Migrations.FizzBuzz
 {
     [DbContext(typeof(FizzBuzzContext))]
-    partial class FizzBuzzContextModelSnapshot : ModelSnapshot
+    [Migration("20220411133737_nullableUId")]
+    partial class nullableUId
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

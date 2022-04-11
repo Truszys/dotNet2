@@ -6,5 +6,6 @@ namespace dotNet2.Interfaces
     {
         IQueryable<FizzBuzz> GetAllEntries();
         void AddToRepo(FizzBuzz fizzBuzz);
+        public void DeleteEntity(int delId);
     }
 }

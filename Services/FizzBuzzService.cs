@@ -14,7 +14,7 @@ namespace dotNet2.Services
 
         public List<FizzBuzzForListVM> GetAllEntries()
         {
-            var EntriesList = _FizzBuzzRepo.GetAllEntries();
+            var EntriesList = _FizzBuzzRepo.GetAllEntries().Take(20);
             List<FizzBuzzForListVM> Data = new List<FizzBuzzForListVM>();
             foreach (var entry in EntriesList)
             {
@@ -25,6 +25,7 @@ namespace dotNet2.Services
                     Year = entry.Year,
                     Date = entry.Date,
                     Result = entry.Result,
+                    UId = entry.UId,
                 };
                 Data.Add(eVM);
             }
@@ -51,6 +52,10 @@ namespace dotNet2.Services
                 Data.Add(eVM);
             }
             return Data;
+        }
+        public void DeleteEntity(int delId)
+        {
+            _FizzBuzzRepo.DeleteEntity(delId);
         }
     }
 }

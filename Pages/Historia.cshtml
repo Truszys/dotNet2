@@ -17,6 +17,7 @@ else
                 <th><label asp-for="FizzBuzzLabels.FullName"></label></th>
                 <th><label asp-for="FizzBuzzLabels.Date"></label></th>
                 <th><label asp-for="FizzBuzzLabels.Result"></label></th>
+                <th><label>Usuń</label></th>
             </tr>
             @foreach (var item in Model.List)
             {
@@ -25,6 +26,15 @@ else
                     <td>@item.FullName</td>
                     <td>@item.Date</td>
                     <td>@item.Result</td>
+                    <td>
+                    @if (@item.UId == Model.currentUserId)
+                    {
+                        <form method="post">
+                            <input type="hidden" name="deleteId" value="@item.Id" />
+                            <button type="submit" value="Delete" class="material-icons delete-btn">close</button>
+                        </form>
+                    }
+                    </td>
                 </tr>
             }
         </tbody>

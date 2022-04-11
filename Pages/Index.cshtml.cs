@@ -3,6 +3,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using dotNet2.Interfaces;
 using dotNet2.ViewModels.FizzBuzz;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using dotNet2.Areas.Identity.Data;
+using Microsoft.AspNetCore.Authorization;
 
 namespace dotNet2.Pages
 {
@@ -10,8 +14,10 @@ namespace dotNet2.Pages
     {
         private readonly ILogger<IndexModel> _logger;
         private readonly IFizzBuzzService _FizzBuzzService;
+        private readonly UserManager<IdentityUser> _userManager;
         public List<FizzBuzzForListVM> List;
         public FizzBuzzForListVM FizzBuzzForListVM;
+        public string currentUserId;
 
 
         [BindProperty]
@@ -22,10 +28,13 @@ namespace dotNet2.Pages
         
         [TempData]
         public string Message { get; set; }
-        public IndexModel(ILogger<IndexModel> logger, IFizzBuzzService FizzBuzzService)
+        public IndexModel(ILogger<IndexModel> logger, 
+            IFizzBuzzService FizzBuzzService,
+            UserManager<IdentityUser> userManager)
         {
             _logger = logger;
             _FizzBuzzService = FizzBuzzService;
+            _userManager = userManager;
         }
         public void OnGet()
         {
@@ -58,6 +67,7 @@ namespace dotNet2.Pages
                 }
                 Message += "był rok przystępny.";
                 FizzBuzz.Result = Message;
+                FizzBuzz.UId = _userManager.GetUserId(User);
                 _FizzBuzzService.AddEntry(FizzBuzz);
             }
             List = _FizzBuzzService.GetEntriesFromToday();

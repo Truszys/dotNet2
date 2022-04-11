@@ -3,6 +3,8 @@ using dotNet2.Interfaces;
 using dotNet2.Services;
 using dotNet2.Repository;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
+using dotNet2.Areas.Identity.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,12 +15,18 @@ builder.Services.AddTransient<IFizzBuzzService, FizzBuzzService>();
 builder.Services.AddTransient<IFizzBuzzRepository, FizzBuzzRepository>();
 
 builder.Services.AddDbContext<FizzBuzzContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("EFDemoDB")));
+
+builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+    .AddEntityFrameworkStores<IdentityContext>();
+builder.Services.AddDbContext<IdentityContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("EFDemoDB")));
 builder.Services.AddSession(options =>
 {
     options.IdleTimeout = TimeSpan.FromMinutes(5);
     options.Cookie.HttpOnly = true;
     options.Cookie.IsEssential = true;
 });
+
 builder.Services.AddDistributedMemoryCache();
 
 var app = builder.Build();
@@ -35,7 +43,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-
+app.UseAuthentication();
 app.UseAuthorization();
 app.UseSession();
 app.MapRazorPages();

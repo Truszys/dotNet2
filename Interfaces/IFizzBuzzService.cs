@@ -8,5 +8,6 @@ namespace dotNet2.Interfaces
         public List<FizzBuzzForListVM> GetAllEntries();
         public void AddEntry(FizzBuzz newItem);
         public List<FizzBuzzForListVM> GetEntriesFromToday();
+        public void DeleteEntity(int delId);
     }
 }

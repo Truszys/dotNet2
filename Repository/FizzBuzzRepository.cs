@@ -14,13 +14,23 @@ namespace dotNet2.Repository
 
         public IQueryable<FizzBuzz> GetAllEntries()
         {
-            return _context.FizzBuzz;
+            return _context.FizzBuzz.OrderByDescending(item => item.Date);
         }
 
         public void AddToRepo(FizzBuzz fizzBuzz)
         {
             _context.FizzBuzz.Add(fizzBuzz);
             _context.SaveChanges();
+        }
+        
+        public void DeleteEntity(int delId)
+        {
+            var FizzBuzz = _context.FizzBuzz.Find(delId);
+            if (FizzBuzz != null)
+            {
+                _context.FizzBuzz.Remove(FizzBuzz);
+                _context.SaveChanges();
+            }
         }
     }
 }

@@ -34,11 +34,19 @@ namespace dotNet2.Models
         [Column(TypeName = "varchar(300)")]
         public string? Result { get; set; }
 
+        [Column(TypeName = "NVARCHAR(450)")]
+        public string? UId { get; set; }
+
         public bool IsLeap()
         {
             if(Year % 4 == 0 && (Year % 100 != 0 || Year % 400 == 0))
                 return true;
             return false;
+        }
+
+        public int GetId()
+        {
+            return Id;
         }
     }
 }
