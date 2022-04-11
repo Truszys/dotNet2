@@ -12,11 +12,10 @@ namespace dotNet2.Services
             _FizzBuzzRepo = FizzBuzzRepo;
         }
 
-        public List<FizzBuzzForListVM> GetAllEntries()
+        private List<FizzBuzzForListVM> DataToList(IQueryable<FizzBuzz> Data)
         {
-            var EntriesList = _FizzBuzzRepo.GetAllEntries().Take(20);
-            List<FizzBuzzForListVM> Data = new List<FizzBuzzForListVM>();
-            foreach (var entry in EntriesList)
+            List<FizzBuzzForListVM> List = new List<FizzBuzzForListVM>();
+            foreach (var entry in Data)
             {
                 var eVM = new FizzBuzzForListVM()
                 {
@@ -27,9 +26,21 @@ namespace dotNet2.Services
                     Result = entry.Result,
                     UId = entry.UId,
                 };
-                Data.Add(eVM);
+                List.Add(eVM);
             }
-            return Data;
+            return List;
+        }
+
+        public List<FizzBuzzForListVM> GetAllEntries()
+        {
+            var EntriesList = _FizzBuzzRepo.GetAllEntries();
+            return DataToList(EntriesList);
+        }
+
+        public List<FizzBuzzForListVM> GetLast20Entries()
+        {
+            var EntriesList = _FizzBuzzRepo.GetAllEntries().Take(20);
+            return DataToList(EntriesList);
         }
         public void AddEntry(FizzBuzz newItem)
         {
@@ -38,20 +49,7 @@ namespace dotNet2.Services
         public List<FizzBuzzForListVM> GetEntriesFromToday()
         {
             var EntriesList = _FizzBuzzRepo.GetAllEntries().Where(item => item.Date.Date == DateTime.Today);
-            List<FizzBuzzForListVM> Data = new List<FizzBuzzForListVM>();
-            foreach (var entry in EntriesList)
-            {
-                var eVM = new FizzBuzzForListVM()
-                {
-                    Id = entry.Id,
-                    FullName = entry.FirstName + " " + entry.LastName,
-                    Year = entry.Year,
-                    Date = entry.Date,
-                    Result = entry.Result,
-                };
-                Data.Add(eVM);
-            }
-            return Data;
+            return DataToList(EntriesList);
         }
         public void DeleteEntity(int delId)
         {

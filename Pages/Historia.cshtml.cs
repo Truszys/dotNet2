@@ -26,14 +26,14 @@ namespace dotNet2.Pages
         }
         public void OnGet()
         {
-            List = _FizzBuzzService.GetAllEntries();
+            List = _FizzBuzzService.GetLast20Entries();
             currentUserId = _userManager.GetUserId(User);
         }
 
         public IActionResult OnPostAsync(int deleteId)
         {
             _FizzBuzzService.DeleteEntity(deleteId);
-            List = _FizzBuzzService.GetAllEntries();
+            List = _FizzBuzzService.GetLast20Entries();
             currentUserId = _userManager.GetUserId(User);
             return Page();
         }
