@@ -28,6 +28,7 @@ namespace dotNet2.Pages
         
         [TempData]
         public string Message { get; set; }
+#pragma warning disable CS8618
         public IndexModel(ILogger<IndexModel> logger, 
             IFizzBuzzService FizzBuzzService,
             UserManager<IdentityUser> userManager)
@@ -36,6 +37,7 @@ namespace dotNet2.Pages
             _FizzBuzzService = FizzBuzzService;
             _userManager = userManager;
         }
+#pragma warning restore CS8618
         public void OnGet()
         {
             List = _FizzBuzzService.GetEntriesFromToday();

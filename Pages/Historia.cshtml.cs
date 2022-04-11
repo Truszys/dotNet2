@@ -17,6 +17,7 @@ namespace dotNet2.Pages
         public List<FizzBuzzForListVM> List;
         public readonly FizzBuzzForListVM FizzBuzzLabels;
         public string currentUserId;
+#pragma warning disable CS8618
 
         public HistoriaModel(ILogger<HistoriaModel> logger, IFizzBuzzService FizzBuzzService, UserManager<IdentityUser> userManager)
         {
@@ -24,6 +25,7 @@ namespace dotNet2.Pages
             _FizzBuzzService = FizzBuzzService;
             _userManager = userManager;
         }
+#pragma warning restore CS8618
         public void OnGet()
         {
             List = _FizzBuzzService.GetLast20Entries();

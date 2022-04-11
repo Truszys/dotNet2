@@ -13,15 +13,18 @@ else
     <table class="fizzbuzz-db-data">
         <tbody>
             <tr>
+                <th><label>Lp.</label></th>
                 <th><label asp-for="FizzBuzzLabels.Year"></label></th>
                 <th><label asp-for="FizzBuzzLabels.FullName"></label></th>
                 <th><label asp-for="FizzBuzzLabels.Date"></label></th>
                 <th><label asp-for="FizzBuzzLabels.Result"></label></th>
                 <th><label>Usuń</label></th>
             </tr>
+            @{var en = 1;}
             @foreach (var item in Model.List)
             {
                 <tr>
+                    <td>@en</td>
                     <td>@item.Year</td>
                     <td>@item.FullName</td>
                     <td>@item.Date</td>
@@ -36,6 +39,7 @@ else
                     }
                     </td>
                 </tr>
+                en++;
             }
         </tbody>
     </table>

@@ -18,7 +18,9 @@ namespace dotNet2.Models
         [StringLength(100, ErrorMessage = "Maksymalna długość to 100")]
         [Required(ErrorMessage = "Pole jest obowiązkowe!")]
         [Column(TypeName = "varchar(100)")]
+#pragma warning disable CS8618
         public string FirstName { get; set; }
+#pragma warning restore CS8618
 
         [Display(Name = "Nazwisko")]
         [RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "W nazwisku powinny być tylko litery")]
