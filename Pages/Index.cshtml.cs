@@ -1,18 +1,18 @@
 ﻿using dotNet2.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Http;
-using Newtonsoft.Json;
-using dotNet2.Data;
+using dotNet2.Interfaces;
+using dotNet2.ViewModels.FizzBuzz;
 
 namespace dotNet2.Pages
 {
     public class IndexModel : PageModel
     {
         private readonly ILogger<IndexModel> _logger;
-        private readonly FizzBuzzContext _context;
+        private readonly IFizzBuzzService _FizzBuzzService;
+        public List<FizzBuzzForListVM> List;
+        public FizzBuzzForListVM FizzBuzzForListVM;
 
-        public IList<FizzBuzz> FizzBuzzData { get; set; }
 
         [BindProperty]
         public FizzBuzz FizzBuzz { get; set; }
@@ -22,36 +22,23 @@ namespace dotNet2.Pages
         
         [TempData]
         public string Message { get; set; }
-
-        public List<FizzBuzz>? List { get; set; }
-        public IndexModel(ILogger<IndexModel> logger, FizzBuzzContext context)
+        public IndexModel(ILogger<IndexModel> logger, IFizzBuzzService FizzBuzzService)
         {
             _logger = logger;
-            _context = context;
+            _FizzBuzzService = FizzBuzzService;
         }
         public void OnGet()
         {
+            List = _FizzBuzzService.GetEntriesFromToday();
             Message = "";
-            FizzBuzzData = _context.FizzBuzz.ToList();
         }
         public IActionResult OnPost()
         {
             Message = "";
-            if (List == null)
-                List = new List<FizzBuzz>();
             FizzBuzz.Date = DateTime.Now;
             FizzBuzz.Result = "";
             if (ModelState.IsValid)
             {
-                var Data = HttpContext.Session.GetString("Data");
-                if (Data != null)
-                    List = JsonConvert.DeserializeObject<List<FizzBuzz>>(Data);
-                else
-                    List = new List<FizzBuzz>();
-                if(!List.Any(item => item.FirstName == FizzBuzz.FirstName && 
-                                     item.LastName == FizzBuzz.LastName && item.Year == FizzBuzz.Year))
-                    List.Add(FizzBuzz);
-                HttpContext.Session.SetString("Data", JsonConvert.SerializeObject(List));
                 Message += FizzBuzz.FirstName;
                 if(FizzBuzz.LastName != null)
                 {
@@ -71,9 +58,9 @@ namespace dotNet2.Pages
                 }
                 Message += "był rok przystępny.";
                 FizzBuzz.Result = Message;
-                _context.FizzBuzz.Add(FizzBuzz);
-                _context.SaveChanges();
+                _FizzBuzzService.AddEntry(FizzBuzz);
             }
+            List = _FizzBuzzService.GetEntriesFromToday();
             return Page();
         }
     }

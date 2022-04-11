@@ -1,10 +1,17 @@
 using dotNet2.Data;
+using dotNet2.Interfaces;
+using dotNet2.Services;
+using dotNet2.Repository;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+
+builder.Services.AddTransient<IFizzBuzzService, FizzBuzzService>();
+builder.Services.AddTransient<IFizzBuzzRepository, FizzBuzzRepository>();
+
 builder.Services.AddDbContext<FizzBuzzContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("EFDemoDB")));
 builder.Services.AddSession(options =>
 {

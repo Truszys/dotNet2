@@ -31,3 +31,32 @@
         }
     </form>
 </div>
+<div>
+    <h2>Dzisiejsze wyszukiwania</h2>
+    @if (Model.List == null || Model.List.Count == 0)
+    {
+        <div class="alert alert-danger">Brak dodanych danych</div>
+    }
+    else
+    {
+        <table class="fizzbuzz-db-data">
+            <tbody>
+                <tr>
+                    <th><label asp-for="FizzBuzzForListVM.Year"></label></th>
+                    <th><label asp-for="FizzBuzzForListVM.FullName"></label></th>
+                    <th><label asp-for="FizzBuzzForListVM.Date"></label></th>
+                    <th><label asp-for="FizzBuzzForListVM.Result"></label></th>
+                </tr>
+                @foreach (var item in Model.List)
+                {
+                    <tr>
+                        <td>@item.Year</td>
+                        <td>@item.FullName</td>
+                        <td>@item.Date</td>
+                        <td>@item.Result</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>

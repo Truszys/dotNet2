@@ -1,6 +1,5 @@
-using dotNet2.Data;
-using dotNet2.Models;
-using Microsoft.AspNetCore.Mvc;
+using dotNet2.Interfaces;
+using dotNet2.ViewModels.FizzBuzz;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace dotNet2.Pages
@@ -8,33 +7,18 @@ namespace dotNet2.Pages
     public class HistoriaModel : PageModel
     {
         private readonly ILogger<HistoriaModel> _logger;
-        private readonly FizzBuzzContext _context;
-        public FizzBuzz FizzBuzz { get; set; }
+        private readonly IFizzBuzzService _FizzBuzzService;
+        public List<FizzBuzzForListVM> List;
+        public readonly FizzBuzzForListVM FizzBuzzLabels;
 
-        public HistoriaModel(ILogger<HistoriaModel> logger, FizzBuzzContext context)
+        public HistoriaModel(ILogger<HistoriaModel> logger, IFizzBuzzService FizzBuzzService)
         {
             _logger = logger;
-            _context = context;
+            _FizzBuzzService = FizzBuzzService;
         }
-
-        public IList<FizzBuzz> FizzBuzzData { get; set; }
         public void OnGet()
         {
-            if(_context != null)
-                FizzBuzzData = _context.FizzBuzz.OrderByDescending(p => p.Date).Take(20).ToList();
-        }
-
-        public IActionResult OnPostAsync(int deleteId)
-        {
-            FizzBuzz = _context.FizzBuzz.Find(deleteId);
-            if (FizzBuzz != null)
-            {
-                _context.FizzBuzz.Remove(FizzBuzz);
-                _context.SaveChanges();
-            }
-            if (_context != null)
-                FizzBuzzData = _context.FizzBuzz.OrderByDescending(p => p.Date).Take(20).ToList();
-            return Page();
+            List = _FizzBuzzService.GetAllEntries();
         }
     }
 }
