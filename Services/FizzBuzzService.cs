@@ -55,5 +55,10 @@ namespace dotNet2.Services
         {
             _FizzBuzzRepo.DeleteEntity(delId);
         }
+
+        public bool IsOwner(string uid, int id)
+        {
+            return _FizzBuzzRepo.IsOwner(uid, id);
+        }
     }
 }

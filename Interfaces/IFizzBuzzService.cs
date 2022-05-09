@@ -10,5 +10,6 @@ namespace dotNet2.Interfaces
         public void AddEntry(FizzBuzz newItem);
         public List<FizzBuzzForListVM> GetEntriesFromToday();
         public void DeleteEntity(int delId);
+        public bool IsOwner(string uid, int id);
     }
 }

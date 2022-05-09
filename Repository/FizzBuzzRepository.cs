@@ -32,5 +32,14 @@ namespace dotNet2.Repository
                 _context.SaveChanges();
             }
         }
+
+#pragma warning disable CS8602
+        public bool IsOwner(string uid, int id)
+        {
+            if (_context.FizzBuzz.Find(id) != null && _context.FizzBuzz.Find(id).UId == uid)
+                return true;
+            return false;
+        }
+#pragma warning restore CS8602
     }
 }

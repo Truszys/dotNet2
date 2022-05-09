@@ -34,9 +34,10 @@ namespace dotNet2.Pages
 
         public IActionResult OnPostAsync(int deleteId)
         {
-            _FizzBuzzService.DeleteEntity(deleteId);
-            List = _FizzBuzzService.GetLast20Entries();
             currentUserId = _userManager.GetUserId(User);
+            if (_FizzBuzzService.IsOwner(currentUserId, deleteId))
+                _FizzBuzzService.DeleteEntity(deleteId);
+            List = _FizzBuzzService.GetLast20Entries();
             return Page();
         }
     }
